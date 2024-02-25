@@ -12,11 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id(); // this is to be used as a theoretical order_item ID
-            $table->integer("order_id"); // this will be replicated for every item in an order
+            $table->id();
             $table->foreignId("customer_id");
-            $table->string("sku")->references('sku')->on('products');
-            $table->integer("quantity");
+            $table->string("bot_name")->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,10 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "order_id" => rand(1,10),
+            "customer_id" => \App\Models\Customer::all()->random()->id,
+            "sku" => \App\Models\Product::all()->random()->sku,
+            "quantity" => rand(1,5)
         ];
     }
 }

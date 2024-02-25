@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string("sku")->length(7)->index();
-            $table->string("product_name");
-            $table->decimal("weight", 5, 2);
+            $table->string("sku")->length(7)->unique()->index();
             $table->foreignId("category_id");
+            $table->string("product_name")->index();
+            $table->decimal("weight", 5, 2);
             $table->timestamps();
         });
     }

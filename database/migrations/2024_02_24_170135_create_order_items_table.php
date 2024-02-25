@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string("name")->index();
+        Schema::create('order_items', function (Blueprint $table) {
+            $table->id(); // this is to be used as a theoretical order_item ID
+            $table->foreignId("order_id"); // this will be replicated for every item in an order
+            $table->string("sku")->references('sku')->on('products');
+            $table->integer("quantity");
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('order_items');
     }
 };
