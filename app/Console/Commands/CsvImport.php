@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Customer;
 use App\Repositories\CustomerRepository;
 use App\Repositories\OrderRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Console\Command;
 
 class CsvImport extends Command
@@ -27,6 +28,7 @@ class CsvImport extends Command
 
     protected $customerRepository;
     protected $orderRepository;
+    protected $productRepository;
 
     /**
      * Execute the console command.
@@ -35,6 +37,7 @@ class CsvImport extends Command
     {
         $this->customerRepository = new CustomerRepository();
         $this->orderRepository = new OrderRepository();
+        $this->productRepository = new ProductRepository();
 
         // Use file argument if we have one otherwise use default filename
         $this->file = "./storage/".($this->argument('file') ?: $this->file);
@@ -76,8 +79,11 @@ class CsvImport extends Command
         $order = $this->orderRepository->findOrCreate($data[0], $customer->id);
         $this->line("Order: ".$order->id);
 
+        $product = $this->productRepository->findBy('sku', $data[2]);
+
         return [
             "order_id" => $order->id,
+            // "product_id" => $product->id,
             "sku" => $data[2],
             "quantity" => $data[3],
         ];

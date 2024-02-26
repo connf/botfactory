@@ -27,8 +27,6 @@ class OrderRepository
     public function find($id)
     {
         return Order::find($id);
-        // We could override the find method globally here
-        // for example to a findOrFail, should there be a business requirement for this
     }
 
     public function findBy($field, $search)
@@ -57,5 +55,26 @@ class OrderRepository
     public function addOrderItem(array $data)
     {
         return OrderItem::firstOrCreate($data);
+    }
+
+    public function getOrders()
+    {
+        return Order::all()->with('customer');
+    }
+
+    public function getOrdersFor($customerId)
+    {
+        return Customer::find($customerId)->with('orders');
+    }
+
+    public function generateBotName(int|Order $order)
+    {
+        if (is_int($order)) {
+            $order = Order::find($order);
+        }
+
+        $catRepo = new CategoryRepository();
+        $order->bot_name = $catRepo->createBotName($order->category());
+        $order->update();
     }
 }

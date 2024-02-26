@@ -26,13 +26,18 @@ class Order extends Model
 
     public function products()
     {
-        // return $this->hasManyThrough(Product::class, OrderItem::class, 'product_id', 'sku');
+        return $this->hasManyThrough(Product::class, OrderItem::class, 'order_id', 'sku', 'id', 'sku');
     }
 
     public function category()
     {
         // Get most prevalent category
-        // return $this->products()->max('category_id')->category()->name;
+        return Category::find($this->products()->get()
+            ->groupBy('category_id')
+            ->sortByDesc(function($categories) {
+                return $categories->count();
+            })->first()
+        ->first()["category_id"]);
     }
 
     public function totalWeight()

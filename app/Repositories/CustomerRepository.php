@@ -49,4 +49,9 @@ class CustomerRepository
 
         return Customer::create($data);
     }
+
+    public function getCustomers()
+    {
+        return Customer::get();
+    }
 }

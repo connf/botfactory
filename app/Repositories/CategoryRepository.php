@@ -16,7 +16,7 @@ class CategoryRepository
         'ics',
         'ers',
         'ials',
-        'al Components',
+        'ical Components',
     ];
 
     /**
@@ -73,16 +73,16 @@ class CategoryRepository
     public function createBotName(string|Category $data): string
     {
         if ($data instanceof Category) {
-            $data = $category->name;
+            $data = $data->name;
         }
         
         // Remove any unwanted name endings
         foreach($this->strippableNames as $toStrip) {
-            $data = str_replace($data, $toStrip, "");
+            $data = str_replace($toStrip, "", $data);
         }
 
         // Pick a random appendableName
-        $id = rand(0,len($this->appendableNames));
+        $id = rand(0,count($this->appendableNames)-1);
 
         // Build the name
         $data = $data.$this->appendableNames[$id];

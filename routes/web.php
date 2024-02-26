@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/vue', function () {
+    return view('vue');
+});
+
+Route::get('/customers', function () {
+    return view('customers');
+});
+
+Route::get('/customer/{customerId}/orders', [CustomerController::class, 'showCustomerOrders']);
+Route::get('/order/{orderId}', [OrderController::class, 'showOrder']);
