@@ -48,6 +48,9 @@ class ApiImport extends Command
 
         $this->line("Pulling API data from: ".$this->url);
 
+        /**
+         * Could refactor this into queued events
+         */
         while (!is_null($this->url)) {
             $data = json_decode(file_get_contents($this->url), true);
             $this->line('A page of data has been obtained. Products found.');

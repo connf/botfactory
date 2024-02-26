@@ -40,6 +40,9 @@ class CsvImport extends Command
         $this->file = "./storage/".($this->argument('file') ?: $this->file);
         $this->line("Pulling order data from: ".$this->file);
 
+        /**
+         * Could refactor this into queued events
+         */
         $row = 0; // Header, 1 and above is for data
         if (($handle = fopen($this->file, "r")) !== false) {
             while (($data = fgetcsv($handle)) !== false) {
