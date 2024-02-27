@@ -2,9 +2,13 @@
   <div>
     <div class="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
         <div class="min-w-full align-middle">
-          <h1>Customers</h1>
             <table class="min-w-full divide-y divide-gray-200 border">
                 <thead>
+                    <tr>
+                        <th class="px-6 py-3 bg-gray-50 text-left">
+                            <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Customers</span>
+                        </th>
+                    </tr>
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-left">
                             <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">ID</span>
