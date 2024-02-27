@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/customers', [CustomerController::class, 'getCustomers']);
 Route::get('/customerorders/{id}', [CustomerController::class, 'getCustomerOrders']);
 Route::get('/order/{id}', [OrderController::class, 'getOrder']);
+Route::post('/updateBotname', [OrderController::class, 'updateBotName']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateBotNameRequest;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,14 @@ class OrderController extends Controller
             $order->refresh();
         }
 
+        // These are all relationships on the model that need initialising
+        // to pass back with the api data
+        foreach ($order->items as $item) { // initialise items
+            $item->product; // initialise products
+        }
+        // initialise calculate total weight
+        $order->totalWeight = $this->repository->calculateTotalWeight($order); 
+
         return response()->json($order);
     }
 
@@ -46,5 +55,12 @@ class OrderController extends Controller
         return view('order')->with([
             "order" => $this->repository->find($orderId)
         ]);
+    }
+
+    public function updateBotName(UpdateBotNameRequest $request)
+    {
+        $order = $this->repository->find($request->order_id);
+        $order->bot_name = $request->bot_name;
+        return $order->update();
     }
 }

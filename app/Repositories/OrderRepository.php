@@ -77,4 +77,24 @@ class OrderRepository
         $order->bot_name = $catRepo->createBotName($order->category());
         $order->update();
     }
+
+    /**
+     * Calculate the total weight of an order
+     * Using either the order record or ID
+     *
+     * @param int|Order
+     */
+    public function calculateTotalWeight(int|Order $order)
+    {
+        if (is_int($order)) {
+            $order = $this->find($order);
+        }
+
+        $weight = 0;
+        foreach ($order->items as $item) {
+            $weight += $item->quantity * $item->product->weight;
+        }
+
+        return number_format($weight, 2);
+    }
 }

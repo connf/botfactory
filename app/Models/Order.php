@@ -39,9 +39,4 @@ class Order extends Model
             })->first()
         ->first()["category_id"]);
     }
-
-    public function totalWeight()
-    {
-        return $this->products()->pluck('weight')->sum();
-    }
 }
